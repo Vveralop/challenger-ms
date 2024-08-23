@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Contract {
+  id            Int      @id @default(autoincrement())
+  clientname    String
+  email         String
+  initialdate   DateTime @db.Timestamp(6)
+  accountnumber String?
+  amount        BigInt?
+  currency      Int?
+
+  @@map("contract")
+}

@@ -1,0 +1,151 @@
+
+openapi: 3.0.0
+info:
+  title: Challenge MS
+  description: Challenge to test knowledge about microservices for the use of REST architecture
+  contact:
+    name: Your Name
+    email: your-email@example.com
+  version: 1.0.0
+
+servers:
+  - url: challenge-ms/v1
+tags:
+  - name: Challenge MS
+    description: Operation examples 
+
+paths:
+  /contractList:
+    get:
+      tags:
+        - contract
+      summary: Get contract by filters
+      description: Get contract by filters
+      operationId: getContracts
+      responses:
+        200:
+          description: Success response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Contract'
+        400:
+          description: Bad Request 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+        - name: accountNumber
+          schema:
+            type: string 
+          in: query
+          description: account number in contract 
+          required: true
+        - name: startDate
+          schema:
+            type: string
+            format: date
+          in: query
+          description: start date from
+          required: false
+        - name: endDate
+          schema:
+            type: string
+            format: date
+          in: query
+          description: ending date to
+          required: false
+  /contract:                
+    post:
+      tags:
+        - contract
+      summary: Create contract
+      description:  Create contract
+      operationId: createContract
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractRequest'
+      responses:
+        201:
+          description: Created
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    ContractRequest:
+      type: object
+      properties:
+        clientName:
+          type: string
+          example: Kerry King
+        email: 
+          type: string 
+          example: example@test.com
+        accountNumber:
+          type: string 
+          example: 00-0233-443
+        amount: 
+          type: number 
+          example: 123330
+        currency: 
+          type: string 
+          example: USD
+      required:
+        - name
+        - email
+        - amount
+        - accountNumber
+        - currency
+    Contract:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        clientName:
+          type: string
+          example: Kerry King
+        mail: 
+          type: string 
+          example: example@test.com
+        initialDate: 
+          type: string
+          format: date
+        accountNumber:
+          type: string 
+          example: 00-0233-443
+        amount: 
+          type: number 
+          example: 123330
+        currency: 
+          type: string 
+          example: USD
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
