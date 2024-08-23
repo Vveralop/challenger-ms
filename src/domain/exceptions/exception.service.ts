@@ -30,7 +30,6 @@ export class ValidationExceptionFilter implements ExceptionFilter {
         'Internal server error',
     };
 
-    console.error('Revisión Error:', exception.response.message);
     const error = exception.response.message;
     if (exception instanceof BadRequestException) {
       response.status(status).json({ message: error.toString() });
