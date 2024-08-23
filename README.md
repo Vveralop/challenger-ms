@@ -1,8 +1,5 @@
 ## Description
 
-Se deja .env comentariado en .gitignore para enviar las variales de entorno, que también se pueden dejar en un config especial.
-y para que vean la configuración para el prisma.
-
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Installation
